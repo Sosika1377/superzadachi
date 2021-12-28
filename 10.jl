@@ -1,35 +1,38 @@
 #ДАНО: Робот - в юго-западном углу поля, на котором расставлено некоторое количество маркеров
 #РЕЗУЛЬТАТ: Функция вернула значение средней температуры всех замаркированных клеток
 include("roblib.jl")
-function Task_10(r::Robot)
-    sum = 0 
-    kolvo = 0
-    side = Ost
-    while isborder(r,Nord) == false
-        s, c = moves!(r,side)
-        sum += s
-        kolvo += c
-        side = inverse(side)
-    end
-    s, c = moves!(r,side)
-    sum +=s
-    kolvo +=c
-    return (sum/kolvo)
-end
-function moves!(r::Robot,side::HorizonSide)
-    sum = 0 
-    kolvo = 0
-    while isborder(r,side) == false
-        if ismarker(r) == true
-            kolvo += 1
-            sum += temperature(r)
-        end
-        move!(r,side)
-    end
-    if isborder(r,Nord) == false
-        move!(r,Nord)
-    end
-    return sum, kolvo
+using HorizonSideRobots
+
+
+function main(r)
+    temp_count(r)
 end
 
-Task_10(r)
+function temp_count(r)
+    temp = 0
+    count = 0
+
+    side = Nord
+    while true
+        while true
+            move!(r, side)
+            if ismarker(r)
+                temp += temperature(r)
+                count += 1
+            end
+
+            if isborder(r, side)
+                break
+            end
+        end
+
+        if isborder(r, side) && isborder(r, Ost)
+            break
+        end
+
+        move!(r, Ost)
+        side = inverse(side)
+    end
+
+    print(temp / count)
+end
