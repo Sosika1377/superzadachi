@@ -6,12 +6,10 @@ using HorizonSideRobots
 function osla (r, side)
     while true
        move!(r, side)
-            if ismarker(r)
-                temp += temperature(r)
-                count += 1
-             
-            end  
-            
+        if ismarker(r)
+            temp += temperature(r)
+            count += 1
+        end       
     end
     return (temp, count)
 end
@@ -25,15 +23,12 @@ function temp_count(r)
     side = Nord
     while isborder(r,side) == false
         temp,count = osla(r,side)
-            g .+= (temp, count)
-    end
-       if isborder(r, side) && isborder(r, Ost)
+        g .+= (temp, count)
+        if isborder(r, Ost)
            break
-       end
-        
-    move!(r, Ost)
-      side = inverse(side)
+        end    
+        move!(r, Ost)
+        side = inverse(side)
     end
-
-    print(g[1] / g[2])
+    return(g[1]/g[2])
 end
