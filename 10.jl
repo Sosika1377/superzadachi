@@ -9,16 +9,14 @@ function main(r)
 end
 
 function temp_count(r)
-    temp = 0
-    count = 0
-
+    g = (0, 0)
     side = Nord
     while true
         while true
             move!(r, side)
             if ismarker(r)
-                temp += temperature(r)
-                count += 1
+                g[1] += temperature(r)
+                g[2] += 1
             end
 
             if isborder(r, side)
@@ -34,5 +32,8 @@ function temp_count(r)
       side = inverse(side)
     end
 
-    print(temp / count)
+    print(g[1] / g[2])
 end
+
+
+
