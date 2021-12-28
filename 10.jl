@@ -23,13 +23,9 @@ end
 function temp_count(r)
     g = (0, 0)
     side = Nord
-    while true
-            g1, g2 = osla(r, Nord)
-            g[1] += g1
-            g[2] += g2
-        if isborder(r, side)
-            break
-        end
+    while isborder(r,side) == false
+        temp,count = osla(r,side)
+            g .+= (temp, count)
     end
        if isborder(r, side) && isborder(r, Ost)
            break
@@ -41,6 +37,3 @@ function temp_count(r)
 
     print(g[1] / g[2])
 end
-
-
-
