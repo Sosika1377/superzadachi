@@ -25,13 +25,13 @@ function temp_count(r)
                 break
             end
         end
-
-        if isborder(r, side) && isborder(r, Ost)
-            break
-        end
-
-        move!(r, Ost)
-        side = inverse(side)
+        println (temp, count)
+       if isborder(r, side) && isborder(r, Ost)
+           break
+       end
+        
+    move!(r, Ost)
+      side = inverse(side)
     end
 
     print(temp / count)
